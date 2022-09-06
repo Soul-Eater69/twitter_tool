@@ -1,0 +1,6 @@
+flask
+geocoder
+tweepy
+gunicorn
+flask_caching
+dotenv

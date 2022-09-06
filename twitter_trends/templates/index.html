@@ -1,0 +1,116 @@
+{%extends 'base.html'%}
+{%block content%}
+<style>
+  .table.table-striped.active{
+  filter: blur(2px);
+  pointer-events: none;
+  user-select: none;
+}
+
+.col-4.active{
+  filter: blur(2px);
+  pointer-events: none;
+  user-select: none;
+}
+</style>
+<table class="table table-striped" id="table-striped-id">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Rank</th>
+        <th scope="col">Hashtag</th>
+        <th scope="col">Volume</th>
+        <th scope="col"><i class="fas fa-file-download" onclick="get_excel()"></i></th>
+      </tr>
+    </thead>
+    <tbody>
+    
+    {%for item in data%}
+      <tr>
+        <th scope="row" style="font-family: system-ui; font-weight:800;">{{ loop.index }}</th>
+        <td style="font-family: system-ui; font-weight:800;"><i class="fa-solid fa-hashtag" ></i><a href="#" onclick="toggle('{{loop.index}}','{{item['name'].replace("#",'')}}','{{item['tweet_volume']}}')">{{item['name'].replace("#",'')}}</a></td>
+        <td style="font-family: system-ui; font-weight:800;">
+            {% if item['tweet_volume']==None%}
+            Less than 10K
+            {%else%}
+                {{item['tweet_volume']}}
+            {%endif%}
+        </td>
+        <td style="font-family: system-ui; font-weight:500;">
+            <button type="button" id="search-btn" class="btn btn-dark" onclick="toggle('{{loop.index}}','{{item['name'].replace("#",'')}}','{{item['tweet_volume']}}')">Details</button>
+        </td>
+      </tr>
+    {%endfor%} 
+    </tbody>
+  </table>
+
+<script>
+    
+    const row_tag = document.getElementById('response-table');
+    const input = document.getElementById('search-item');
+    const loader = document.getElementById('loader');
+    var location_tag = document.getElementById('location_span');
+    
+
+    var file = [];
+    var sort_flag = 0;
+
+    
+    const toggle = (i,name,volume)=>{
+        console.log(name);
+        let response = document.getElementById('table-striped-id');
+        let response1 = document.getElementById('col-id');
+        let popup = document.getElementById('pop-up');
+        popup.classList.toggle('active');
+        response.classList.toggle('active');
+        response1.classList.toggle('active');
+
+        document.getElementById('pop-up-header').innerHTML = "# "+name;
+        document.getElementById('pop-up-volume').innerHTML = volume;
+        document.getElementById('pop-up-rank').innerHTML = i;
+        document.getElementById('pop-up-hashtag').innerHTML = "# "+name;
+    };
+
+    
+    const get_excel_data_list = (file)=>{
+        const data = [file.map((e,i)=>{
+            return new Array(i+1,e.name,e.tweet_volume);
+        })];
+        return data
+    
+    }
+
+
+    function get_excel(){
+        console.log("clicl")
+        var ns = XLSX.utils.book_new();
+        ns.props = {
+            title: "new excell sheet",
+            subject: "data",
+            Auther: "deepawali",
+            createdDate: Date.now(),
+        };
+        ns.SheetNames.push("Sheet-1");
+        var nb_data = {{excel_data|safe }};
+        
+        var nb = XLSX.utils.aoa_to_sheet(nb_data);
+        ns.Sheets["Sheet-1"] = nb;
+
+        var nbOut = XLSX.write(ns, { bookType: "xlsx", type: "binary" });
+        saveAs(
+          new Blob([saveBook(nbOut)], { type: "application/octet-stream" }),
+          "test.xlsx"
+        );
+    }
+    
+
+      function saveBook(s) {
+        var buf = new ArrayBuffer(s.length);
+        var view = new Uint8Array(buf);
+        for (var i = 0; i < s.length; i++) {
+          view[i] = s.charCodeAt(i) & 0xff;
+        }
+        return buf;
+      }
+
+</script>
+{%endblock%}

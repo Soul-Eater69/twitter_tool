@@ -1,0 +1,185 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200;300;400;600;700;900&display=swap');
+*{
+    margin:0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Source Sans Pro', sans-serif;
+}
+
+body{
+    width: 100%;
+    height:100vh;
+    background: rgb(240, 239, 243);
+}
+
+.wrapper{
+    width: 90%;
+    height: 85%;
+    background: #fff;
+    border-radius:15px;
+    box-shadow: 4px 4px 30px rgba(0,0,0,0.06);
+    padding: 20px;
+    overflow-y: scroll;
+}
+
+.container::-webkit-scrollbar{
+    display: none;
+}
+
+
+.container form{
+    width: 70%;
+    background: rgb(240, 239, 243);
+    border: 1.2px solid rgb(240, 239, 243);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.container form input{
+    background: rgb(240, 239, 243);
+    border: none;
+    outline: none;
+    box-shadow: none;
+    width: 100%;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 8px 10px;
+}
+
+#search-btn{
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border-top-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+
+.container form i{
+    padding-left: 10px;
+}
+
+.fa-hashtag{
+    padding-right: 8px;
+}
+
+.card{
+    background: rgba(0, 0, 0, 0.911);
+    color: #fff;
+}
+
+.card h5{
+    border: 1px solid #fff;
+    border-radius: 12px;
+    color: black;
+    padding: 8px;
+    width: fit-content;
+    padding-right: 14px;
+    background: #fff;
+}
+
+h1{
+    font-weight: bolder;
+}
+
+.col{
+font-size: large;
+font-weight: 800;
+}
+
+
+#location{
+padding: 8px 10px;
+background: black;
+color: white;
+font-weight: 500;
+padding-left: 15px;
+padding-right: 15px;
+border: 1px solid black;
+border-radius: 6px;
+width: 50%;
+
+}
+
+.container .fa-map-location-dot{
+padding-right: 10px;
+}
+
+.fa-file-download{
+cursor: pointer;
+font-size: 168%;
+}
+
+.container#blur.active{
+filter:blur(3px);
+
+}
+
+#pop-up{
+position: fixed;
+padding-left: 5px;
+padding-right: 5px;
+padding-top: 10px;
+padding-bottom: 10px;
+top: 40%;
+left: 50%;
+transform: translate(-50%,-50%);
+width: 40%;
+height: fit-content;
+box-shadow: 0 5px 30px rgb(0, 0, 0,0.30);
+background: white;
+color: black;
+opacity: 0;
+visibility: hidden;
+transition: 0.5s;
+}
+
+#pop-up.active{
+opacity: 1;
+visibility: visible;
+transition: 0.5s;
+}
+
+.table-striped.active{
+filter: blur(4px);
+pointer-events: none;
+user-select: none;
+}
+
+.pop-elements{
+background: black;
+align-items: center;
+padding: 10px;
+align-items: center;
+margin-bottom: 5px;
+padding: 10px 10px;
+width: 90%;
+
+}
+.pop-elements div{
+color: white;
+font-weight: 700;
+border: 1px solid black;
+border-radius: 13px;
+margin-top: 3px;
+}
+
+#close {
+background-color:  #5800FF;
+color: white;
+border:1px solid #5800FF;
+padding: 10px;
+}
+
+.pop-elements i{
+font-size: 140%;
+margin-left: 30px;
+}
+
+
+@media all and (max-width: 727px) {
+    #pop-up.active{
+        width: 100%;
+    }
+}
